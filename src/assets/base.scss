@@ -1,1 +1,11 @@
-@use "/node_modules/bootstrap/scss/bootstrap";
+@use "/node_modules/bootstrap/scss/bootstrap" as bs;
+
+.bg-gray-200 {
+  background-color: bs.$gray-200;
+}
+
+.divider-right {
+  border-right-width: 2px;
+  border-right-style: solid;
+  border-right-color: bs.$gray-400;
+}
