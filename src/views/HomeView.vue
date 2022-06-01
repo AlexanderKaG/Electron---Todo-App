@@ -23,6 +23,7 @@
 import { mapStores } from "pinia";
 import { useTodoStore } from "@/stores/todo.js";
 import AddTodoButton from "../components/AddTodoButton.vue";
+
 export default {
   name: "HomeView",
   computed: {
@@ -38,3 +39,9 @@ export default {
   },
 };
 </script>
+
+<style>
+.min-width-max-content {
+  min-width: max-content;
+}
+</style>
