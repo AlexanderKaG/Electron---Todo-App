@@ -25,3 +25,9 @@ export default {
     </div>
   </div>
 </template>
+
+<style>
+.min-width-max-content {
+  min-width: max-content;
+}
+</style>
