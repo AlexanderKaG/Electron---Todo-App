@@ -1,7 +1,8 @@
 <template>
   <div class="my-2 d-flex justify-content-between">
     <div>
-      <button class="btn btn-secondary" @click="save">Save</button>
+      <button class="btn btn-secondary" @click="open">Open</button>
+      <button class="btn btn-secondary mx-2" @click="save">Save</button>
     </div>
     <AddTodoButton />
   </div>
@@ -41,6 +42,12 @@ export default {
     save() {
       const cleanObjects = JSON.parse(JSON.stringify(this.todoStore.items));
       window.api.saveFile(cleanObjects);
+    },
+    async open() {
+      let content = await window.api.openFile();
+      if (content) {
+        this.todoStore.items = JSON.parse(content);
+      }
     },
   },
 };

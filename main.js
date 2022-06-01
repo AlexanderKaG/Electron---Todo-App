@@ -27,11 +27,23 @@ function createWindow() {
   win.loadFile("dist/index.html");
   return win;
 }
+async function openFile(browserWin) {
+  let { canceled, filePaths } = await dialog.showOpenDialog(browserWin, {
+    filters: [
+      { name: "JSON", extensions: ["json"] },
+      { name: "All Files", extensions: ["*"] },
+    ],
+  });
+  if (!canceled && filePaths?.length > 0) {
+    return fs.readFile(filePaths[0], "utf-8");
+  }
+}
 app.whenReady().then(() => {
   const mainWin = createWindow();
   // when we get sent a message on the channel "saveFile" we
   // call the saveToFile function
   ipcMain.handle("saveFile", (event, todos) => saveFile(mainWin, todos));
+  ipcMain.handle("openFile", () => openFile(mainWin));
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) {
       createWindow();
