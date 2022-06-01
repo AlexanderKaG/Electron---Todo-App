@@ -1,5 +1,8 @@
 <template>
-  <div class="my-2 d-flex justify-content-end">
+  <div class="my-2 d-flex justify-content-between">
+    <div>
+      <button class="btn btn-secondary" @click="save">Save</button>
+    </div>
     <AddTodoButton />
   </div>
   <div v-for="todo in todoStore.items" :key="todo.title" class="card my-2">
@@ -23,7 +26,6 @@
 import { mapStores } from "pinia";
 import { useTodoStore } from "@/stores/todo.js";
 import AddTodoButton from "../components/AddTodoButton.vue";
-
 export default {
   name: "HomeView",
   computed: {
@@ -35,6 +37,10 @@ export default {
   methods: {
     remove(id) {
       this.todoStore.remove(id);
+    },
+    save() {
+      const cleanObjects = JSON.parse(JSON.stringify(this.todoStore.items));
+      window.api.saveFile(cleanObjects);
     },
   },
 };
