@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import uuid4 from "uuid4";
+
 export const useTodoStore = defineStore({
   id: "todo",
   state: () => ({
@@ -24,21 +26,21 @@ export const useTodoStore = defineStore({
           "Perspiciatis incidunt eveniet necessitatibus quaerat corporisearum illum!",
       },
     ],
-    actions: {
-      add(title, date, description) {
-        // generate a unique id for each todo item to enable
-        // simple removal
-        let todo = {
-          id: uuid4(),
-          title,
-          date,
-          description,
-        };
-        this.items.push(todo);
-      },
-      remove(id) {
-        this.items = this.items.filter((i) => i.id != id);
-      },
-    },
   }),
+  actions: {
+    add(title, date, description) {
+      // generate a unique id for each todo item to enable
+      // simple removal
+      let todo = {
+        id: uuid4(),
+        title,
+        date,
+        description,
+      };
+      this.items.push(todo);
+    },
+    remove(id) {
+      this.items = this.items.filter((i) => i.id != id);
+    },
+  },
 });
