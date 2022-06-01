@@ -1,15 +1,7 @@
-<script>
-import { mapStores } from "pinia";
-import { useTodoStore } from "@/stores/todo.js";
-export default {
-  name: "HomeView",
-  computed: {
-    ...mapStores(useTodoStore),
-  },
-};
-</script>
-
 <template>
+  <div class="my-2 d-flex justify-content-end">
+    <AddTodoButton />
+  </div>
   <div v-for="todo in todoStore.items" :key="todo.title" class="card my-2">
     <div class="card-header">
       <h3 class="d-inline">
@@ -20,14 +12,29 @@ export default {
       <div>{{ todo.description }}</div>
       <div class="min-width-max-content">
         <button class="btn btn-sm btn-primary mx-2">Done</button>
-        <button class="btn btn-sm btn-secondary">Remove</button>
+        <button class="btn btn-sm btn-secondary" @click="remove(todo.id)">
+          Remove
+        </button>
       </div>
     </div>
   </div>
 </template>
-
-<style>
-.min-width-max-content {
-  min-width: max-content;
-}
-</style>
+<script>
+import { mapStores } from "pinia";
+import { useTodoStore } from "@/stores/todo.js";
+import AddTodoButton from "../components/AddTodoButton.vue";
+export default {
+  name: "HomeView",
+  computed: {
+    ...mapStores(useTodoStore),
+  },
+  components: {
+    AddTodoButton,
+  },
+  methods: {
+    remove(id) {
+      this.todoStore.remove(id);
+    },
+  },
+};
+</script>
